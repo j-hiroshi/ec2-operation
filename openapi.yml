@@ -17,8 +17,9 @@ paths:
             schema:
               type: object
               properties:
-                instanceId:
+                userId:
                   type: string
+                  example: jinbo
                 action:
                   type: string
                   enum: [start, stop]
