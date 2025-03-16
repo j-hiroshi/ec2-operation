@@ -1,0 +1,62 @@
+openapi: "3.0.1"
+info:
+  title: "EC2 Control API"
+  version: "1.0.0"
+servers:
+  - url: "https://dz0ntbghgl.execute-api.ap-northeast-1.amazonaws.com/{basePath}"
+    variables:
+      basePath:
+        default: "prod"
+paths:
+  /ec2:
+    options:
+      responses:
+        "200":
+          description: "200 response"
+          headers:
+            Access-Control-Allow-Origin:
+              schema:
+                type: "string"
+            Access-Control-Allow-Methods:
+              schema:
+                type: "string"
+            Access-Control-Allow-Headers:
+              schema:
+                type: "string"
+          content: {}
+  /ec2/{action}:
+    post:
+      parameters:
+        - name: "action"
+          in: "path"
+          required: true
+          schema:
+            type: "string"
+            enum: [start, stop]
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/userInfo"
+        required: true
+      responses:
+        "200":
+          description: Successfully executed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+        "400":
+          description: Bad request
+        "500":
+          description: Server error
+components:
+  schemas:
+    userInfo:
+      type: "object"
+      properties:
+        userId:
+          type: "string"
