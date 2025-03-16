@@ -9,7 +9,38 @@ servers:
         default: "prod"
 paths:
   /ec2/{action}:
+    post:
+      parameters:
+        - name: "action"
+          in: "path"
+          required: true
+          schema:
+            type: "string"
+            enum: ["start", "stop"]
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/userInfo"
+        required: true
+      responses:
+        "200":
+          description: "200 response"
+          headers:
+            Access-Control-Allow-Origin:
+              schema:
+                type: "string"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/MODEL80c1bc"
     options:
+      parameters:
+        - name: "action"
+          in: "path"
+          required: true
+          schema:
+            type: "string"
       responses:
         "200":
           description: "200 response"
@@ -24,30 +55,6 @@ paths:
               schema:
                 type: "string"
           content: {}
-    post:
-      parameters:
-        - name: "action"
-          in: "path"
-          required: true
-          schema:
-            type: "string"
-            enum: [start, stop]
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/userInfo"
-        required: true
-      responses:
-        "200":
-          description: Successfully executed
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  message:
-                    type: string
         "400":
           description: Bad request
         "500":
@@ -58,4 +65,9 @@ components:
       type: "object"
       properties:
         userId:
+          type: "string"
+    MODEL80c1bc:
+      type: "object"
+      properties:
+        message:
           type: "string"
