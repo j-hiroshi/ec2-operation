@@ -8,7 +8,7 @@ servers:
       basePath:
         default: "prod"
 paths:
-  /ec2:
+  /ec2/{action}:
     options:
       responses:
         "200":
@@ -24,7 +24,6 @@ paths:
               schema:
                 type: "string"
           content: {}
-  /ec2/{action}:
     post:
       parameters:
         - name: "action"
